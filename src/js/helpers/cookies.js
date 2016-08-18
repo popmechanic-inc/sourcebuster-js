@@ -2,10 +2,20 @@
 
 var delimiter = require('../data').delimiter;
 
+var prefix = '';
+
 module.exports = {
 
+  setPrefix: function(p) {
+    prefix = p;
+  },
+
+  getPrefix: function() {
+    return prefix;
+  },
+
   encodeData: function(s) {
-    return encodeURIComponent(s).replace(/\!/g, '%21')
+    return prefix + encodeURIComponent(s).replace(/\!/g, '%21')
                                 .replace(/\~/g, '%7E')
                                 .replace(/\*/g, '%2A')
                                 .replace(/\'/g, '%27')
@@ -15,7 +25,7 @@ module.exports = {
 
   decodeData: function(s) {
     try {
-      return decodeURIComponent(s).replace(/\%21/g, '!')
+      return decodeURIComponent(s.replace(new RegExp('^' + prefix), '')).replace(/\%21/g, '!')
                                   .replace(/\%7E/g, '~')
                                   .replace(/\%2A/g, '*')
                                   .replace(/\%27/g, "'")

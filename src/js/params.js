@@ -10,6 +10,8 @@ module.exports = {
     var user   = prefs || {},
         params = {};
 
+    params.prefix = this.validate.isString(user.prefix) ? user.prefix : '';
+
     // Set `lifetime of the cookie` in months
     params.lifetime = this.validate.checkFloat(user.lifetime) || 6;
     params.lifetime = parseInt(params.lifetime * 30 * 24 * 60);

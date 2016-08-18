@@ -81,6 +81,52 @@ module.exports = {
           cookies.set(data.service.migrations, fail, _with.l, _with.d, _with.i);
         }
       }
+    },
+    {
+      id: '1471519752600',
+      version: '1.0.5',
+      go: function(mid, _with) {
+
+        var success = mid + '=1',
+            fail    = mid + '=0',
+            oldPrefix = '',
+            newPrefix = cookies.getPrefix();
+
+        try {
+          cookies.setPrefix(oldPrefix);
+
+          var _in = [];
+          for (var prop in data.containers) {
+            if (data.containers.hasOwnProperty(prop)) {
+              _in.push(data.containers[prop]);
+            }
+          }
+
+          for (var i = 0; i < _in.length; i++) {
+            cookies.setPrefix(oldPrefix);
+            if (cookies.get(_in[i])) {
+              var buffer = cookies.get(_in[i]);
+              cookies.setPrefix(newPrefix);
+              cookies.set(_in[i], buffer, _with.l, _with.d, _with.i);
+            }
+          }
+
+          // Update `session`
+          cookies.setPrefix(oldPrefix);
+          if (cookies.get(data.containers.session)) {
+            cookies.setPrefix(newPrefix);
+            cookies.set(data.containers.session, data.pack.session(0), _with.l, _with.d, _with.i);
+          }
+
+          // Yay!
+          cookies.setPrefix(newPrefix);
+          cookies.set(data.service.migrations, success, _with.l, _with.d, _with.i);
+
+        } catch (err) {
+          // Oops
+          cookies.set(data.service.migrations, fail, _with.l, _with.d, _with.i);
+        }
+      }
     }
 
   ]

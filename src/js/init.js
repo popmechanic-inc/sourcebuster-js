@@ -16,6 +16,8 @@ module.exports = function(prefs) {
       isolate   = p.domain.isolate,
       lifetime  = p.lifetime;
 
+  cookies.setPrefix(p.prefix);
+
   migrations.go(lifetime, domain, isolate);
 
   var __sbjs_type,
