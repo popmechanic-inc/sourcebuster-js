@@ -2,7 +2,7 @@
 
 var data        = require('./data'),
     terms       = require('./terms'),
-    cookies     = require('./helpers/cookies'),
+    cookies     = require('./helpers/localStorage'),
     uri         = require('./helpers/uri'),
     utils       = require('./helpers/utils'),
     params      = require('./params'),
