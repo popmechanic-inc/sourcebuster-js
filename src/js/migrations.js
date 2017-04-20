@@ -16,6 +16,7 @@ module.exports = {
         var mids = [];
         var advance = '';
 
+        cookies.setPrefix(ls.getPrefix());
         if (!cookies.get(data.containers.first) && !cookies.get(data.service.migrations)) {
 
             for (i = 0; i < migrate.length; i++) {
@@ -165,7 +166,7 @@ module.exports = {
                     if (data.containers.hasOwnProperty(k)) {
                         var old = cookies.get(data.containers[k]);
                         ls.set(data.containers[k], old, _with.l);
-                        //cookies.destroy(data.containers[k]);
+                        cookies.destroy(data.containers[k]);
                     }
                 }
             }
