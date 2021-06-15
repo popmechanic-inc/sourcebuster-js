@@ -192,17 +192,21 @@ module.exports = function(prefs) {
   function isOrganic(referer) {
 
     var y_host  = 'yandex',
-        y_param = 'text',
+        y_text_param = 'text',
+        y_etext_param = 'etext',
         g_host  = 'google';
 
     var y_host_regex  = new RegExp('^(?:.*\\.)?'  + utils.escapeRegexp(y_host)  + '\\..{2,9}$'),
-        y_param_regex = new RegExp('.*'           + utils.escapeRegexp(y_param) + '=.*'),
+        y_text_param_regex = new RegExp('.*'           + utils.escapeRegexp(y_text_param) + '=.*'),
+        y_etext_param_regex = new RegExp('.*'           + utils.escapeRegexp(y_etext_param) + '=.*'),
         g_host_regex  = new RegExp('^(?:www\\.)?' + utils.escapeRegexp(g_host)  + '\\..{2,9}$');
 
     if (
         !!uri.parse(referer).query &&
-        !!uri.parse(referer).host.match(y_host_regex) &&
-        !!uri.parse(referer).query.match(y_param_regex)
+        !!uri.parse(referer).host.match(y_host_regex) && (
+          !!uri.parse(referer).query.match(y_text_param_regex) ||
+          !!uri.parse(referer).query.match(y_etext_param_regex)
+        )
       ) {
       __sbjs_source = y_host;
       return true;
