@@ -77,19 +77,25 @@ module.exports = {
       }
     }
 
-    params.organics.push({ host: 'bing.com',      param: 'q',     display: 'bing'            });
-    params.organics.push({ host: 'yahoo.com',     param: 'p',     display: 'yahoo'           });
-    params.organics.push({ host: 'about.com',     param: 'q',     display: 'about'           });
-    params.organics.push({ host: 'aol.com',       param: 'q',     display: 'aol'             });
-    params.organics.push({ host: 'ask.com',       param: 'q',     display: 'ask'             });
-    params.organics.push({ host: 'globososo.com', param: 'q',     display: 'globo'           });
-    params.organics.push({ host: 'go.mail.ru',    param: 'q',     display: 'go.mail.ru'      });
-    params.organics.push({ host: 'rambler.ru',    param: 'query', display: 'rambler'         });
-    params.organics.push({ host: 'tut.by',        param: 'query', display: 'tut.by'          });
+    params.organics.push({ host: 'www.bing.com', display: 'bing' });
+    params.organics.push({ host: 'search.yahoo.com', display: 'yahoo'});
+    params.organics.push({ host: 'about.com', param: 'q', display: 'about' });
+    params.organics.push({ host: 'aol.com', param: 'q', display: 'aol' });
+    params.organics.push({ host: 'ask.com', param: 'q', display: 'ask' });
+    params.organics.push({ host: 'globososo.com', param: 'q', display: 'globo' });
+    params.organics.push({ host: 'go.mail.ru', display: 'go.mail.ru' });
+    params.organics.push({ host: 'rambler.ru', param: 'query', display: 'rambler' });
+    params.organics.push({ host: 'tut.by', param: 'query', display: 'tut.by' });
+    params.organics.push({ host: 'duckduckgo.com', display: 'duckduckgo.com' });
+    params.organics.push({ host: 'www.ecosia.org', display: 'ecosia.org' });
+    params.organics.push({ host: 'search.ukr.net', display: 'search.ukr.net' });
+    params.organics.push({ host: 'www.baidu.com', display: 'baidu.com' });
+    params.organics.push({ host: 'www.qwant.com', display: 'qwant.com' });
+    params.organics.push({ host: 'search.naver.com', param: 'query', display: 'search.naver.com' });
+    params.organics.push({ host: 'search.avg.com', display: 'search.avg.com' });
 
-    params.referrals.push({ host: 't.co',                         display: 'twitter.com'     });
-    params.referrals.push({ host: 'plus.url.google.com',          display: 'plus.google.com' });
-
+    params.referrals.push({ host: 't.co', display: 'twitter.com' });
+    params.referrals.push({ host: 'plus.url.google.com', display: 'plus.google.com' });
 
     return params;
 

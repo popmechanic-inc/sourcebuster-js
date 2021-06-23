@@ -650,7 +650,7 @@ module.exports = function(prefs) {
         y_text_param = 'text',
         g_host  = 'google';
 
-    var y_collapsed_referer_regex = new RegExp('^https://' + y_host + '\\.[a-zA-Z0-9]{2}\/$'),
+    var y_collapsed_referer_regex = new RegExp('^https://' + y_host + '\\.[a-zA-Z0-9]{2,3}\/$'),
         y_host_regex  = new RegExp('^(?:.*\\.)?'  + utils.escapeRegexp(y_host)  + '\\..{2,9}$'),
         y_text_param_regex = new RegExp('.*'           + utils.escapeRegexp(y_text_param) + '=.*'),
         g_host_regex  = new RegExp('^(?:www\\.)?' + utils.escapeRegexp(g_host)  + '\\..{2,9}$');
@@ -667,12 +667,15 @@ module.exports = function(prefs) {
     } else if (!!uri.parse(referer).host.match(g_host_regex)) {
       __sbjs_source = g_host;
       return true;
-    } else if (!!uri.parse(referer).query) {
+    } else {
       for (var i = 0; i < p.organics.length; i++) {
-        if (
-            uri.parse(referer).host.match(new RegExp('^(?:.*\\.)?' + utils.escapeRegexp(p.organics[i].host)  + '$', 'i')) &&
-            uri.parse(referer).query.match(new RegExp('.*'         + utils.escapeRegexp(p.organics[i].param) + '=.*', 'i'))
-          ) {
+        var query = uri.parse(referer).query;
+        var hostIsMatched = uri.parse(referer).host.match(new RegExp('^(?:.*\\.)?' + utils.escapeRegexp(p.organics[i].host) + '$', 'i'));
+        var queryIsMatched =
+            !p.organics[i].param ||
+            query && query.match(new RegExp('.*' + utils.escapeRegexp(p.organics[i].param) + '=.*', 'i'));
+
+        if (hostIsMatched && queryIsMatched) {
           __sbjs_source = p.organics[i].display || p.organics[i].host;
           return true;
         }
@@ -680,9 +683,9 @@ module.exports = function(prefs) {
           return false;
         }
       }
-    } else {
-      return false;
     }
+
+    return false;
   }
 
   function isReferral(referer) {
@@ -1009,19 +1012,25 @@ module.exports = {
       }
     }
 
-    params.organics.push({ host: 'bing.com',      param: 'q',     display: 'bing'            });
-    params.organics.push({ host: 'yahoo.com',     param: 'p',     display: 'yahoo'           });
-    params.organics.push({ host: 'about.com',     param: 'q',     display: 'about'           });
-    params.organics.push({ host: 'aol.com',       param: 'q',     display: 'aol'             });
-    params.organics.push({ host: 'ask.com',       param: 'q',     display: 'ask'             });
-    params.organics.push({ host: 'globososo.com', param: 'q',     display: 'globo'           });
-    params.organics.push({ host: 'go.mail.ru',    param: 'q',     display: 'go.mail.ru'      });
-    params.organics.push({ host: 'rambler.ru',    param: 'query', display: 'rambler'         });
-    params.organics.push({ host: 'tut.by',        param: 'query', display: 'tut.by'          });
+    params.organics.push({ host: 'www.bing.com', display: 'bing' });
+    params.organics.push({ host: 'search.yahoo.com', display: 'yahoo'});
+    params.organics.push({ host: 'about.com', param: 'q', display: 'about' });
+    params.organics.push({ host: 'aol.com', param: 'q', display: 'aol' });
+    params.organics.push({ host: 'ask.com', param: 'q', display: 'ask' });
+    params.organics.push({ host: 'globososo.com', param: 'q', display: 'globo' });
+    params.organics.push({ host: 'go.mail.ru', display: 'go.mail.ru' });
+    params.organics.push({ host: 'rambler.ru', param: 'query', display: 'rambler' });
+    params.organics.push({ host: 'tut.by', param: 'query', display: 'tut.by' });
+    params.organics.push({ host: 'duckduckgo.com', display: 'duckduckgo.com' });
+    params.organics.push({ host: 'www.ecosia.org', display: 'ecosia.org' });
+    params.organics.push({ host: 'search.ukr.net', display: 'search.ukr.net' });
+    params.organics.push({ host: 'www.baidu.com', display: 'baidu.com' });
+    params.organics.push({ host: 'www.qwant.com', display: 'qwant.com' });
+    params.organics.push({ host: 'search.naver.com', param: 'query', display: 'search.naver.com' });
+    params.organics.push({ host: 'search.avg.com', display: 'search.avg.com' });
 
-    params.referrals.push({ host: 't.co',                         display: 'twitter.com'     });
-    params.referrals.push({ host: 'plus.url.google.com',          display: 'plus.google.com' });
-
+    params.referrals.push({ host: 't.co', display: 'twitter.com' });
+    params.referrals.push({ host: 'plus.url.google.com', display: 'plus.google.com' });
 
     return params;
 
@@ -1048,6 +1057,7 @@ module.exports = {
   }
 
 };
+
 },{"./helpers/uri":5,"./terms":10}],10:[function(_dereq_,module,exports){
 "use strict";
 
