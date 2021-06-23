@@ -1,6 +1,6 @@
 {
   "name": "sourcebuster",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Get sources of your site's visitors (utm / organic / referral / typein).",
   "homepage": "https://github.com/alexfedoseev/sourcebuster-js",
   "author": {
@@ -33,7 +33,7 @@
   "main": "./dist/sourcebuster.js",
   "scripts": {
     "start": "NODE_ENV=development http-server -a js.dev -p 8080 & gulp",
-    "build": "NODE_ENV=production gulp build"
+    "build": "gulp build"
   },
   "lintOptions": {
     "exported": {
