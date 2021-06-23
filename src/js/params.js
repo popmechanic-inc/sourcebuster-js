@@ -92,6 +92,7 @@ module.exports = {
     params.organics.push({ host: 'www.baidu.com', display: 'baidu.com' });
     params.organics.push({ host: 'www.qwant.com', display: 'qwant.com' });
     params.organics.push({ host: 'search.naver.com', param: 'query', display: 'search.naver.com' });
+    params.organics.push({ host: 'search.avg.com', display: 'search.avg.com' });
 
     params.referrals.push({ host: 't.co', display: 'twitter.com' });
     params.referrals.push({ host: 'plus.url.google.com', display: 'plus.google.com' });
